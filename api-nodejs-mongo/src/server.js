@@ -3,14 +3,16 @@ const express = require('express');
 const AuthController = require("./controllers/AuthController");
 const AdminController = require("./controllers/AdminController");
 
-const authenticateMiddleware = require("./middlewares/authenticate");
-
+const indexRoute = require("./routes/index");
+const authRoute = require("./routes/Auth");
+const adminRoute = require("./routes/Admin");
 const app = express();
 
 app.use(express.json());
 
-app.use("/auth", AuthController)
-app.use("/admin", authenticateMiddleware , AdminController);
+app.use('/',indexRoute);
+app.use("/auth", authRoute);
+app.use("/users", adminRoute);
 
 app.listen(3001, ()=>{
     console.log('Server is running');
